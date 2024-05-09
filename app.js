@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
+
 app.get('/' , (req , res)=>{
    res.send('Welcome on my server! See <a href="/random" style="color:green;">random fact</a> or <a href="/daily" style="color:red;">daily fact</a>, both useless!')
 })
+
 app.get(/\/random|\/daily/, async (req, res) => {
     let pathname = req.path == '/daily' ? '/today' : '/random';
     try{
@@ -15,6 +17,7 @@ app.get(/\/random|\/daily/, async (req, res) => {
     } catch(err) {
         return res.send(err)
     } 
-    return res.json({"success": false});
+    return res.json({"fetch_successful": false});
 })
+
 app.listen(port , ()=> console.log('> Server is up and running on port : ' + port))
